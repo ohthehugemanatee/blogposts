@@ -1,0 +1,21 @@
+---
+title: "How to uninstall Dolly Drive"
+comments: true
+layout: "post"
+permalink: "/2013/03/how-to-uninstall-dolly-drive.html"
+uuid: "1060672023633794251"
+guid: "tag:blogger.com,1999:blog-4675781771561437973.post-1060672023633794251"
+date: "2013-03-05 12:37:00"
+updated: "2013-03-05 12:37:18"
+description: 
+blogger:
+    siteid: "4675781771561437973"
+    postid: "1060672023633794251"
+categories: 
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+I recently tried the Dolly Drive backup service, and decided it wasn't for me. Foolishly, I uninstalled it the way you uninstall everything on OSX: by dragging it's Application icon to the Trash. I thought it was gone for good... it wasn't until weeks later that I noticed my system would gradually slow down after boot.<br /><br />This is a brand new Macbook Pro, so there's no good reason for slow down. As a first diagnostic step, I opened up the Console log viewer, and was greeted by thousands of log entries like this:<br /><br /><code>3/5/13 1:12:20.870 PM dssbackupd[163]: Unable to fetch mandatory server information. You don't have a working cache. Please, try again later.<br />3/5/13 1:12:20.871 PM dssbackupd[163]: Cache failed bootstrapping.<br />3/5/13 1:12:20.981 PM dollysync-util[393]: Warning: unable to serialize operation queue.<br /></code><br /><div><br />These were coming in at a rate of about 6-8 per second. This may or may not have been the reason my computer is slowing down (I'll tell you in a few weeks), but at the very least they were having an impact on my ability to read logs!<br /><br />A little bit of digging turned up the connection between dollydrive and these binaries... as well as a few others it had left behind on my system. Of course, without an Application to run, these processes were just spinning away and erroring out. <br /><br />So here's how to complete the uninstall process for Dolly Drive, if you've already ditched the application:<br /><ul><li>In your OSX Finder, hit the "Go" menu and select "Go to Folder". Enter "~/Library" at the prompt.</li><li>In the Finder window that appears, navigate to Application Support , and scroll down to the two entries for Dolly Drive and Dolly Drive Revo, and drag them to the Trash.</li><li>Open a Terminal window (in Applications &gt; Utilities), and type the following commands (with Enter at the end of each):</li></ul><code>killall -9 dollycloned</code><br /><code>killall -9 dollysync-util<br />killall -9 dssbackup<br />killall -9 dssbackup-local</code><br /><code>killall -9 dssbackupd<br />killall -9 RevoScheduler</code></div><br />These commands shut down the various elements of DollyDrive which are currently running. Then empty your Trash. If the Trash complains about files in use, run the same "killall -9" command with the name of the file it complained about, and then try emptying again.<br /><br />Opening my log console again was sweet, sweet bliss. Reboot if you want to, but it's not really necessary - the application is gone, and will not bother your system again.
+</div>
+{% endraw %}

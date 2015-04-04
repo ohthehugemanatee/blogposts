@@ -1,0 +1,21 @@
+---
+title: "AWS Load Balancer SSL limitations"
+layout: "post"
+permalink: "/2011/04/aws-load-balancer-ssl-limitations.html"
+uuid: "3069733286618069433"
+guid: "tag:blogger.com,1999:blog-4675781771561437973.post-3069733286618069433"
+date: "2011-04-29 13:58:00"
+updated: "2011-04-29 13:58:47"
+description: 
+blogger:
+    siteid: "4675781771561437973"
+    postid: "3069733286618069433"
+categories: [rsa, ssl, openssl, aws]
+comments: true
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+No one else seems to have documented this anywhere, so I'm gonna do it here.<br /><br />Amazon Web Services has a great little load balancer system you can use. &nbsp;A few clicks, and you're away to the races with a shiny load balancer of your own! &nbsp;The best part? &nbsp;It will even do SSL termination at the load balancer for you. &nbsp;Just paste in your certs and away you go! &nbsp;Right?<br /><br />Wrong. &nbsp;Seems like every time I do this, I end up with an invalid certificate at some stage of the game. Amazon doesn't tell you WHAT about your cert is wrong, or even what cert formats they want. &nbsp;They just say "error: invalid private key".<br /><br />I use a lot of Comodo certificates, which take about a day to generate. &nbsp;I don't know why it takes them that long, maybe they're lovingly hand crafted by artisanal SSL certificate islanders on a small pacific island. &nbsp;The point is, it takes for ever for them to respond to a request for a new cert, and that means I don't like to sit around regenerating certs in different formats at random until I figure out what Amazon wants.<br /><br />So here's what I worked out - you can do this at home yourself. &nbsp;I generated my private key and certificate request with the often used:<br /><blockquote>openssl req -new -nodes -keyout swearingatcomputers.key -out swearingatcomputers.csr</blockquote>This is the lazy man's approach. &nbsp;It doesn't bother me about a password for the key, I don't have to type two separate commands... I just get a nice quick key that I can use. &nbsp;Comodo accepts the key and certificate request, and 24 hours later my signed public certificate and authority chain file are delivered in the mail. &nbsp;When I set up SSL with Apache, this is fine.<br /><br />But try and drop this into Amazon, and you get one of those mysterious messages "error: invalid private key". &nbsp;Turns out your keys have to be RSA or DSA encrypted in order for Amazon to accept them. &nbsp;To see if you're affected, just look at the first line of your key file. &nbsp;If it says "BEGIN PRIVATE KEY", then read on. &nbsp;If it says "BEGIN RSA PRIVATE KEY" or "BEGIN DSA PRIVATE KEY", then this won't interest you , sorry.<br /><br />So to fix this problem, you SHOULD have used a slightly different command to generate that key:<br /><br /><blockquote>openssl req -nodes -newkey rsa:2048 -keyout swearingatcomputers.key -out swearingatcomputers.csr</blockquote>At this point, I started swearing at computers. &nbsp;I have to wait another 24 hours for some pacific islander to meticulously hand-paint <b>another</b>&nbsp;cert? &nbsp;Ridiculous!<div><br /></div><div>But don't you fret. &nbsp;You can actually convert the certs you have into RSA versions that Amazon will love. First, the private key:</div><blockquote>openssl rsa -in swearingatcomputers.key -text</blockquote>This will spit out all the calculations openssl has to do to read the key, and at the end - an RSA encrypted key! &nbsp;Just copy and paste the RSA PRIVATE KEY section at the end (including the BEGIN and END lines) into a separate file, or into AWS directly, and there ya go! &nbsp;<br /><br />In order to make the public certificate match, you'll have to convert that, too.<br /><br /><blockquote>openssl x509 -inform PEM -in swearingatcomputers.crt</blockquote><div>BAM - out comes your fancy key for Amazon usage.</div><div><br /></div><div>And that's it! &nbsp;I'm happy SOMEONE took the time to document Amazon's SSL key requirements. &nbsp;They make sense, they're smart requirements... but they have to be written somewhere for poor rubes like me.</div>
+</div>
+{% endraw %}

@@ -1,0 +1,21 @@
+---
+title: "Multiple SSL sites on one AWS instance"
+layout: "post"
+permalink: "/2011/04/multiple-ssl-sites-on-one-aws-instance.html"
+uuid: "4833618604861321203"
+guid: "tag:blogger.com,1999:blog-4675781771561437973.post-4833618604861321203"
+date: "2011-04-29 13:44:00"
+updated: "2011-04-29 13:44:43"
+description: 
+blogger:
+    siteid: "4675781771561437973"
+    postid: "4833618604861321203"
+categories: [ssl, aws]
+comments: true
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+It's a familiar problem - you can't really host multiple SSL sites on a single IP address. &nbsp;There's a fancy workaround if you get a pricey multi-domain certificate, of course. &nbsp;But separate sites, with separate certificates just won't work. &nbsp;The reason is simple - put yourself in Apache's shoes.<br /><br />When you're using name based virtualhosts, Apache uses the request headers to determine which vhost should get the request. &nbsp;But HTTPS headers are encrypted! &nbsp;So there's no way for Apache to tell which virtual host should get this message, without decrypting it furst. &nbsp;But it can't decrypt without knowing the correct virtual host...<br /><br />There's a great workaround for this with Amazon, using their Elastic Load Balancer (ELB) system. &nbsp;You simply set up a load balancer, and forward port 443 to, say port 8443 on your instance, and have Apache listen on 8443 for SSL connections. &nbsp;Recently Amazon rolled out the ability to terminate SSL on the load balancer, so you can actually have the ELB listen on 443, decrypt the traffic with your certs, and forward the request to your Instance the clear, on port 80. <br /><br />There is one weakness. &nbsp;ELBs cannot be addressed by IP address. They can only be addressed by CNAME - and can anyone think of why this might cause problems? &nbsp;If you said "your root DNS record can't be a CNAME", go get yourself a glass of milk and some oreos, you've earned them. &nbsp;Now this is one of those DNS rules that is often ignored. &nbsp;For most people, having a CNAME for swearingatcomputers.com really isn't going to break anything. &nbsp;But for anyone who uses email on their domain, this is an important rule to follow. &nbsp;Your MX records require that there be an A record for the domain. <br /><br />Still, this will get you to a pretty good place. &nbsp;You can have https://secure.swearingatcomputers.com , separate from http://www.swearingatcomputers.com , and that fits a lot of use cases.<br /><br />Not all of them, though. &nbsp;Sometimes you have a client who simply MUST have SSL for everything. &nbsp;Now you're in trouble. &nbsp;Here are your options:<br /><br />1) Set up your own load balancer on a separate, micro instance. &nbsp;ELB is nice, but if it can't do what you want, you gotta do it the old fashioned way.<br /><br />2) Set up a simple Apache instance with the certs installed, and "redirect permanent" to www.swearingatcomputers.com, which is your ELB CNAME.<br /><br />3) Cry about it.<br /><br />I tried option 3, but it didn't help. &nbsp;Which of the other two options would you take?
+</div>
+{% endraw %}

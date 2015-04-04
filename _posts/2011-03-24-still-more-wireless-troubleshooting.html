@@ -1,0 +1,21 @@
+---
+title: "Still more wireless troubleshooting"
+layout: "post"
+permalink: "/2011/03/still-more-wireless-troubleshooting.html"
+uuid: "1115547348477533560"
+guid: "tag:blogger.com,1999:blog-4675781771561437973.post-1115547348477533560"
+date: "2011-03-24 12:19:00"
+updated: "2011-03-24 12:20:22"
+description: 
+blogger:
+    siteid: "4675781771561437973"
+    postid: "1115547348477533560"
+categories: [osx, atheros, wifi]
+comments: true
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+The damnedest thing happened - I went out of town. &nbsp;I went out of town, and discovered that I was STILL getting dropouts every 90 seconds! &nbsp;On a totally different router, on the opposite site of the planet, in a rural area with no conceivable wireless interference. &nbsp;This prompted me to boot into Windows 7 (I have a Boot Camp partition) to try my ping test under a totally different software stack.<br /><br />Even under Windows, every 90 seconds I would get a ping spike for a second. <br /><br />This means it's got to be hardware, or firmware related. &nbsp;My first instinct was to go for the PRAM, which is as close as Macs get to a BIOS. &nbsp;You can reset your PRAM by holding down Command, Option, P, and R as you reboot the machine. &nbsp;When you hear the "startup sound" the second time, you know you've got it right. Unfortunately this didn't help my dropouts.<br /><br />So now I'm kind of stuck. &nbsp;The firmware is up to date (Atheros 5416 2.1.14.5), the PRAM has been reset, but STILL I get dropouts every 90 seconds like clockwork... on any OS, connected to any router, with any encryption method (or none), anywhere in the world. &nbsp; The connection doesn't drop, it just loses packets for a second.<br /><br />I'm all out of ideas. &nbsp;I'm about ready to disassemble the thing and re-seat the card, in case there's some kind of a contact charge being built up that's discharging every 90 seconds and causing EMI to disrupt the connection. &nbsp;And <i>that</i>&nbsp;is a hypothesis of desperation my friends. &nbsp;Desperation. &nbsp;I do have another, Atheros miniPCI card living in my mediacenter system right now, so I may also test with that. &nbsp;I have a great broadcom miniPCI card kicking around, but unfortunately OSX doesn't have any drivers for that.<br /><br />Any suggestions?
+</div>
+{% endraw %}
