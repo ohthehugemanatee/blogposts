@@ -3,10 +3,10 @@ layout: post
 title: "It's easy to stay private online. Here's how"
 date: 2015-03-28 13:38:23 +0100
 comments: true
+published: false
 categories: 
  - privacy
  - howto
-published: false
 ---
 The Internet is not a private place. It's a public medium, where anyone can read anyone else's transmissions. That's how it was designed, but on that platform we built a lot of services that look and feel like they should be private. Email, chat, web browsing - most people think that these are private activities.
 
