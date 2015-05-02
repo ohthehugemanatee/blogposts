@@ -40,5 +40,4 @@ categories:
 <li><p>extremely personal brands. Mobile devices are extremely personal, and persistence there is more intimate than a bookmark or a website. Facebook is one such example; in fact most social networks probably fall under this category.</p></li>
 </ul>
 
-
 <p>For the other 99% of organizations out there, I expect that unique snowflake apps will give way to standardized, truly responsive and machine readable, web interfaces. I believe that in the next decade or so, most websites will be machine-readable and machine-reformattable. This shift will mean legibility and engagement for everyone: from Google&rsquo;s spiders to visual assistive devices, from TV pluggables to smart watches. And it will mean that the &ldquo;apposphere&rdquo; will largely evaporate away.</p>
