@@ -5,7 +5,7 @@ date: 2015-05-02 10:10:36 -0400
 comments: true
 categories:
   - drupal
-  - drupal planet
+  - drupalplanet
   - drupal 8
   - howto
 ---
