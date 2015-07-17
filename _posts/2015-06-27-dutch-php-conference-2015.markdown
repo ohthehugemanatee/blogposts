@@ -3,7 +3,7 @@ layout: post
 title: "How the world sees Drupal - the Dutch PHP Conference 2015"
 date: 2015-06-27 12:04:52 +0200
 comments: true
-published: false
+published: true
 categories: 
  - PHP
  - Drupal
