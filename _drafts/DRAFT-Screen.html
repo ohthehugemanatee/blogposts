@@ -1,0 +1,22 @@
+---
+title: "Screen"
+layout: "post"
+permalink: "/Screen.html"
+uuid: "2761898793872713713"
+guid: "tag:blogger.com,1999:blog-4675781771561437973.post-2761898793872713713"
+date: "2011-05-20 21:16:00"
+updated: "2011-05-20 23:09:34"
+description: 
+blogger:
+    siteid: "4675781771561437973"
+    postid: "2761898793872713713"
+categories: 
+published: "false"
+comments: true
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+If you're not using the <code>screen</code> command yet, stop what you're doing.  Just stop.  You really can't go another day without learning this fantastic tool.  Take a few minutes to learn it now, and forever be more productive.<br /><br />Simply put, <code>screen</code> lets you have a multi-terminal environment within a single session.  This in itself isn't revolutionary - anyone who works from a gui can have multiple terminal sessions going after all, and who cares how many sessions there are?  It's the extras that really get me: multiple terminals in a single session, sharing terminals with other users (that's right, multiple users on one terminal at a time), terminal persistence across disconnects, cut and paste without a mouse... all this, and it's a real terminal application.  No gui involved.  <br /><br /><h2>Screen</h2><br />Got a terminal window open?  Start up screen with <code>screen</code>.  Looks like nothing happened, right?  This is something you can tack onto your .bashrc file if you like, it's that transparent.  So here's the deal: anything preceded by Ctrl+A is interpreted as a command for Screen, rather than for the terminal.  <br /><br />First thing, let's do something interesting in our existing terminal.  <code><blockquote>tail -f /var/log/syslog</blockquote></code> ought to do it.<br /><br />Watch that code fly by!  Now open a new screen session, by hitting <code>Ctrl+A</code>, then <code>C</code>.  Do something distinctive in this session, like <code>ls -lG /</code>.  Note that screen supports colors.  Let's see what's going on back in syslog: <code>Ctrl+A</code>, then <code>P</code>.  The <code>P</code> and <code>N</code> keys move to the <strong>P</strong>revious and <strong>N</strong>ext sessions, which makes sense.  You can add as many sessions as you like, and scroll through them this way, or using session numbers with <code>Ctrl+A 2</code> for instance.  To close a session, use <code>Ctrl+A k</code> (for Kill).<br /><br />Now let's start having fun.
+</div>
+{% endraw %}

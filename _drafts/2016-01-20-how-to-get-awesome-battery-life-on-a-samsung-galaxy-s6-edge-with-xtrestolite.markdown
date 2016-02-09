@@ -2,8 +2,8 @@
 layout: post
 title: "How to get awesome battery life on a Samsung Galaxy S6 Edge with XtreStoLite"
 date: 2016-01-20 11:16:38 +0100
-comments: true
 published: false
+comments: true
 categories: 
  - android
 ---
