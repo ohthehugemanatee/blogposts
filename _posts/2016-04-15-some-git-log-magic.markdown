@@ -3,7 +3,7 @@ layout: post
 title: "Some git log magic"
 date: 2016-04-15 13:12:41 +0200
 comments: true
-published: false
+published: true
 categories:
  - bash
  - awk
