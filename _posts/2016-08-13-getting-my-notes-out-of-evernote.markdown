@@ -21,6 +21,7 @@ The What
 ---
 
 Here were my criteria:
+
 * ONLY text notes. I've got other ways to handle pictures, drawings, geo-location, and to-do lists. This is just for text.
 * The ability to disable everything "smart" in the text editor. I don't even want smart URLs. Just text.
 * Automatically saves and syncs. Of the hundred or so text documents on my Desktop, 99% of them are called "Untitled".
