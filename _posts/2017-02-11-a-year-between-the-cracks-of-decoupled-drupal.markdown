@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Six months between the cracks of decoupled Drupal"
+title: "Between the cracks of decoupled (Drupal) architecture"
 date: 2017-02-11 11:18:44 +0100
 comments: true
 categories: 
