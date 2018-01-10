@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "I'm joining Microsoft, to do Open Source Right"
+title: "I'm joining Microsoft, because they're doing Open Source Right"
 date: 2018-01-08 20:32:50 +0100
 comments: true
 categories: 
@@ -61,4 +61,6 @@ That's impressive for any company. But Microsoft? It boggles the mind. This leve
 
 In the group I'm entering, a strong commitment to Open Source is built into the project structure, the team responsibilities, and the budgeting practice. Every project has time specifically set aside for contribution; developers' connections to their communities are respected and encouraged. After a decade of working with companies who try to engage with open source responsibly, I can say that **this is the strongest institutional commitment to "giving back" that I have ever seen**. It's a stronger support for contribution than I've ever been able to offer in any of my roles, from sole proprietor to CTO.
 
-So yes, I want to be a part of that. Sign me up. From the outside at least, **this is what it looks like to do enterprise Open Source The Right Way**.
+This does mean a lot more work outside of the Drupal world, though. I will still attend Drupalcons. I will still give technical talks, participate, and help make great open source communities for Drupal and other OSS projects. If anything, I will do those things _more_. And I will do them wearing a Microsoft shirt.
+
+Microsoft is making a genuine, and enormous, push to being open source community members and leaders. From everything I've seen, they are doing it extremely well. From the outside at least, **this is what it looks like to do enterprise Open Source The Right Way**.

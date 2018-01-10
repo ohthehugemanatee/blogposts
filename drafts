@@ -3,7 +3,7 @@ layout: post
 title: "What is good code"
 date: 2017-07-21 21:04:00 +0200
 comments: true
-categories: 
+categories:
   - code style
   - php
 ---
@@ -41,7 +41,7 @@ if (!empty($value)) {
 
 And not just because some arbitrary coding standard said so!
 
-Immediately my _reducto ad absurdum_ sensor starts to go off - you can write insane code this way, if you go too far. 
+Immediately my _reducto ad absurdum_ sensor starts to go off - you can write insane code this way, if you go too far.
 
 ``` php
 // Initialize the $value variable. We'll use this later.
@@ -54,9 +54,9 @@ if (!empty($value) && $value instanceof \EntityInterface) {
 }
 ```
 
-Is this better than the examples above? I certainly wouldn't enjoy writing this way, or reading it. But depending on your target reader, this might be just the way to go. If you're writing an examples package, or a demonstration for a blog post, then this is not so crazy after all. 
+Is this better than the examples above? I certainly wouldn't enjoy writing this way, or reading it. But depending on your target reader, this might be just the way to go. If you're writing an examples package, or a demonstration for a blog post, then this is not so crazy after all.
 
-So consider your audience. In most of my work I try to imagine a new developer on the team. When I know I'm writing to open source something, I imagine the pedantic community reviewers. Think about their skill level, their approach to the codebase, how much they understand the framework, and write for them. 
+So consider your audience. In most of my work I try to imagine a new developer on the team. When I know I'm writing to open source something, I imagine the pedantic community reviewers. Think about their skill level, their approach to the codebase, how much they understand the framework, and write for them.
 
 Name semantically
 ---
@@ -67,14 +67,14 @@ My favorite pet peeve is the word "Controller." Easily the most abused word in t
 
 If you want to pass my code review, never name _anything_ "Controller". If you call something "Manager" you'll get the same dirty looks -I don't care if you caught that bad habit from Java, it's a bad habit and I won't have it in my codebase!
 
-Try to describe _completely_ what the thing IS or DOES. For functions, describe the return (ie "getUserAccount"). If the name gets ridiculously long, that's a code smell and it's time to refactor. 
+Try to describe _completely_ what the thing IS or DOES. For functions, describe the return (ie "getUserAccount"). If the name gets ridiculously long, that's a code smell and it's time to refactor.
 
 Order matters
 ---
 
 Humans learn things by connecting them to each other. That is to say, that in order for a concept to make sense, it cannot exist in a vacuum. This means that when explaining something complex - like a board game or a class - you should always start from the big points, or the points that connect to the rest of the framework, and go from there.
 
-In a well structured class, I expect to see the constructor method(s) at the top, and then the methods starting from biggest overview to smallest detail. Properties should go right before their assigning method, which 99.9% of the time means at the top of the class - enough to say that "all properties go at the top of the class" is a perfectly fine rule of thumb. 
+In a well structured class, I expect to see the constructor method(s) at the top, and then the methods starting from biggest overview to smallest detail. Properties should go right before their assigning method, which 99.9% of the time means at the top of the class - enough to say that "all properties go at the top of the class" is a perfectly fine rule of thumb.
 
 This concept of explaining from largest to smallest, only adding nouns as they're needed, is easy to illustrate. Here's a simplified explanation of the board game _Settlers of Catan_:
 
@@ -89,7 +89,7 @@ This is actually quite a difficult way to explain the game! The listener has to 
 
 * The first to 10 points wins.
 * Each settlement is worth 1 point.
-* You build settlements by spending resources. 
+* You build settlements by spending resources.
 * You can also buy a Development card, which gives you certain bonuses.
 * You collect resources every time someone throws a number touching one of your existing settlements.
 * You can trade with anyone on your turn.
@@ -107,7 +107,7 @@ Similarly in your code, start with the big concept first. What does this class d
 
 ```
 
-This barely even needs comments, it's so clear what's going on. In a well-structured class, this would be right at the top (after `__construct()`), and the other methods would appear in call order below. 
+This barely even needs comments, it's so clear what's going on. In a well-structured class, this would be right at the top (after `__construct()`), and the other methods would appear in call order below.
 
 (Note that this is probably pretty hard to unit test. The one public function is just glue, and it's definitely implied that all the others are protected methods, hiding the actual unit testable logic of the class. Actually you would want to move the key functionality into the public methods of other classes, so they're testable there.)
 
