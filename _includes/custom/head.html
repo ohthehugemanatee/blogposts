@@ -2,3 +2,18 @@
 <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/stylesheets/fonts/prstartk/stylesheet.css" type="text/css" charset="utf-8" />
+
+
+{% capture title %}{% if page.title %}{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %} - {% endif %}{{ site.title }}{% endcapture %}
+
+{% capture description %}{% if page.description %}{{ page.description }}{% else %}{% if site.subtitle %}{{ site.subtitle }}{% else %}{{ content | raw_content }}{% endif %}{% endif %}{% endcapture %}
+
+{% capture canonical %}{{ site.url }}{% if site.permalink contains '.html' %}{{ page.url }}{% else %}{{ page.url | remove:'index.html' | strip_slash }}{% endif %}{% endcapture %}
+
+<meta name="author" content="{{ site.author }}">
+
+<meta property="og:url" content="{{ canonical }}" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{{ title }}" />
+<meta property="og:description" content="{{ description | strip_html | condense_spaces | truncate:300 }}" />
+<meta property="og:image" content="{{ site.url }}/images/oh_the_huge_manatee.png" />
