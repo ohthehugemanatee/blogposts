@@ -6,6 +6,7 @@ comments: true
 categories: 
   - drupal
   - drupalcon
+  - drupalplanet
   - machine learning
   - microsoft
 ---
