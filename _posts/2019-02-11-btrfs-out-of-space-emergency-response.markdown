@@ -141,7 +141,7 @@ Don't forget, a BTRFS volume can span multiple devices! I had to exercise this o
 
 ``` bash
 # Add your extra drive (/dev/sda).
-$ sudo btrfs device add /dev/sda / -f
+$ sudo btrfs device add -f /dev/sda / 
 # Now run the smallest balance operation you can.
 $ sudo btrfs balance start -dusage=1 /
 Done, had to relocate 1 out of 59 chunks
@@ -154,3 +154,43 @@ Done, had to relocate 18 out of 59 chunks
 Balance operations usually take a long time - more than an hour is not unusual. It will take even longer with slow flash media involved. For that reason, I use a very low balance filter (`-dusage=`) in this example. We only need to free up a teensy bit of space to run balance again without the flash disk in the mix.
 
 And this last option is how I saved my computer last night. I hope this helps someone out of a similar predicament someday.
+
+**UPDATE**
+
+Now that I've had to do this a few times, it's *way* better to rebalance a full filesystem by adding a ramdisk to it. Not only is it faster than a flash device, it's also more reliable in most cases... and certainly for my kind of use case (a developer laptop) the important preconditions apply: lots of RAM, reliable power source. Here's the recipe:
+
+``` bash
+# Create a ramdisk. Make sure /dev/ram0 isn't in use already before doing this!
+$ sudo mknod -m 660 /dev/ram0 b 1 0 
+$ sudo chown root:disk /dev/ram0
+# Mount the ramdisk with a concrete size. Otherwise it grows to whatever is needed.
+$ sudo mkdir /mnt/ramdisk
+$ sudo mount -t ramfs -o size=4G,maxsize=4G /dev/ram0 /mnt/ramdisk
+# Create a file on the ramdisk to use as a loopback device.
+$ sudo dd if=/dev/zero of /mnt/ramdisk/extend.img bs=4M count=1000
+$ sudo losetup -fP /mnt/ramdisk/extend.img
+# figure out which loopback device ID is yours
+$ sudo losetup -a |grep extend.img
+/dev/loop10: [5243078]:8563965 (/mnt/ramdisk/extend.img)
+# Add the loopback device to the btrfs filesystem
+$ sudo btrfs device add /dev/loop10 /
+# Decide on your balance ratio and balance as usual.
+$ sudo btrfs fi usage / |head -n 6
+Overall:
+    Device size:		 400.91GiB
+    Device allocated:		 396.36GiB
+    Device unallocated:		   4.55GiB
+    Device missing:		     0.00B
+    Used:			 348.91GiB
+$ echo 'scale=2;348/396' |bc
+.87
+
+$ sudo btrfs balance start -dusage=87 /
+Done, had to relocate 46 out of 400 chunks
+# Remove the device and destroy it.
+$ sudo btrfs device delete /dev/loop0 /
+$ sudo losetup -d /dev/loop10
+$ sudo umount /mnt/ramdisk
+$ sudo rm -rf /dev/ram0 
+```
+
